@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block start %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Users</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        /* Add custom styles here */
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-5 mb-3">Search Users</h1>
+        
+        <form action="{% url 'search_users' %}" method="GET" class="mb-3">
+            <div class="input-group">
+                <input type="text" name="term" class="form-control" placeholder="Enter search term">
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </div>
+            </div>
+        </form>
+
+        <div>
+            {% if user_list %}
+                <h2>Search Results</h2>
+                <ul class="list-group">
+                    {% for user in user_list %}
+                        <li class="list-group-item">{{ user.nameEmail }}</li>
+                        <li class="list-group-item">{{ user.email }}</li>
+                        <hr>
+                    {% endfor %}
+                </ul>
+            {% elif error_message %}
+                <p>{{ error_message }}</p>
+            {% endif %}
+        </div>
+    </div>
+    <!-- Bootstrap JS (optional) -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock start %}
